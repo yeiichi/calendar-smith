@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "calendar-smith"
+version = "0.1.0"
+description = "Lightweight fiscal and ISO calendar utilities."
+authors = [{ name = "Eiichi YAMAMOTO", email = "info@yeiichi.com" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",  # Optional: for checking test coverage
+]
+
+[project.scripts]
+calendar-smith-csv = "calendar_smith.cli:process_csv"
+calendar-smith-solve = "calendar_smith.cli:solve_weeks"
+calendar-smith-nth = "calendar_smith.cli:determine_nth_week"
