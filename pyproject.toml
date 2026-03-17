@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "calendar-smith"
-version = "0.2.1"
+version = "0.2.2"
 description = "Lightweight fiscal and ISO calendar utilities."
 readme = "README.rst"
 authors = [{ name = "Eiichi YAMAMOTO", email = "info@example.com" }]
