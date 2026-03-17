@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "calendar-smith"
-version = "0.2.0"
+version = "0.2.1"
 description = "Lightweight fiscal and ISO calendar utilities."
 readme = "README.rst"
-authors = [{ name = "Eiichi YAMAMOTO", email = "info@yeiichi.com" }]
+authors = [{ name = "Eiichi YAMAMOTO", email = "info@example.com" }]
 license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = []
@@ -38,7 +38,4 @@ dev = [
 ]
 
 [project.scripts]
-calendar-smith-csv = "calendar_smith.cli:process_csv"
-calendar-smith-solve = "calendar_smith.cli:solve_weeks"
-calendar-smith-nth = "calendar_smith.cli:determine_nth_week"
-calendar-smith-windows = "calendar_smith.cli:generate_windows"
+calendar-smith-csv =

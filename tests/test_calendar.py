@@ -9,7 +9,8 @@ from calendar_smith.core import (
     get_fiscal_year,
     get_iso_weeks_for_year,
     get_nth_week_of_month,
-    get_dates_windows
+    get_dates_windows,
+    DateRange
 )
 from calendar_smith.utils import to_date, format_ordinal
 
@@ -54,9 +55,9 @@ def test_get_dates_windows():
     repeats = 3
     # Window 1: 1-7, Window 2: 8-14, Window 3: 15-21
     expected = [
-        (date(2024, 1, 1), date(2024, 1, 7)),
-        (date(2024, 1, 8), date(2024, 1, 14)),
-        (date(2024, 1, 15), date(2024, 1, 21))
+        DateRange(date(2024, 1, 1), date(2024, 1, 7)),
+        DateRange(date(2024, 1, 8), date(2024, 1, 14)),
+        DateRange(date(2024, 1, 15), date(2024, 1, 21))
     ]
     assert get_dates_windows(start_date, window_size, repeats) == expected
 

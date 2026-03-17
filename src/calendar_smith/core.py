@@ -1,11 +1,17 @@
 # src/calendar_smith/core.py
 from datetime import date, timedelta
-from typing import NamedTuple, List, Tuple
+from typing import NamedTuple, List
 
 
 class WeekSpan(NamedTuple):
     """Represents a date range for a specific ISO week."""
     number: int
+    start: date
+    end: date
+
+
+class DateRange(NamedTuple):
+    """Represents a date range."""
     start: date
     end: date
 
@@ -47,30 +53,30 @@ def get_nth_week_of_month(date_obj: date) -> int:
     return (adjusted_dom - 1) // 7 + 1
 
 
-def get_dates_windows(date_obj: date, window_size: int, repeats: int) -> List[Tuple[date, date]]:
+def get_dates_windows(date_obj: date, window_size: int, repeats: int) -> list[DateRange]:
     """
-    Generates a list of (start_date, end_date) tuples representing each window.
+    Generate a list of date ranges (windows) based on a starting date, window size, and number of repeats.
 
-    This function calculates a series of future date ranges (windows) based on a given
-    starting date, a specified window size, and the number of times the calculation
-    should repeat. Each window starts immediately after the previous one ends.
+    This function creates consecutive date ranges, known as windows, starting from the provided date
+    with each window having the specified size. The function allows the creation of multiple non-overlapping
+    windows by repeating the process the specified number of times. Each window range is represented
+    as an instance of the DateRange object.
 
-    Parameters:
-    date_obj: date
-        The starting date of the first window.
-    window_size: int
-        The time interval, in days, for each window.
-    repeats: int
-        The number of future windows to generate.
+    Arguments:
+        date_obj (date): The starting date of the first window.
+        window_size (int): The number of days each window spans.
+        repeats (int): The number of windows to generate.
 
     Returns:
-    List[Tuple[date, date]]
-        A list of tuples, each containing the (start_date, end_date) for a window.
+        list[DateRange]: A list containing the generated DateRange objects.
+
+    Raises:
+        None
     """
-    windows = []
+    windows: List[DateRange] = []
     current_start = date_obj
     for _ in range(repeats):
         current_end = current_start + timedelta(days=window_size - 1)
-        windows.append((current_start, current_end))
+        windows.append(DateRange(current_start, current_end))
         current_start = current_end + timedelta(days=1)
     return windows

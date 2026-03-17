@@ -100,8 +100,8 @@ def generate_windows():
         dates = get_dates_windows(start, args.window_size, args.repeats)
 
         print(f"\nGenerated {args.repeats} windows starting from {start} with size {args.window_size}:")
-        for i, (s, e) in enumerate(dates, 1):
-            print(f"  Window {i:2}: {s} to {e}")
+        for i, window in enumerate(dates, 1):
+            print(f"  Window {i:2}: {window.start} to {window.end}")
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)

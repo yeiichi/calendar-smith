@@ -16,7 +16,7 @@ from .utils import (
     format_ordinal,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 # Defining __all__ ensures that 'from calendar_smith import *' 
 # only exports the intended public API.

@@ -14,7 +14,7 @@ Key Features
 ============
 
 * **Safety-First Parsing**: Strictly rejects ambiguous 6-digit (``460614``) and 7-digit (``2026123``) strings to prevent century errors and data corruption.
-* **Fiscal Logic**: Built-in support for US (October 1 start) and Japanese (April 1 start) fiscal systems.
+* **Fiscal Logic**: Built-in support for US (fiscal year ends Sep 30) and Japanese (fiscal year ends Mar 31) fiscal systems.
 * **Fast-Path Execution**: Utilizes ``datetime.fromisoformat`` for high-performance processing of standard data.
 * **Ordinal Formatting**: Human-friendly outputs (e.g., "1st week", "3rd week").
 * **Zero External Dependencies**: Uses only the Python Standard Library (3.10+).
@@ -40,7 +40,10 @@ CLI Commands
 
 1. ``calendar-smith-csv``
 -------------------------
-Appends a ``fiscal_year`` column to an existing CSV file.
+Appends a ``fiscal_year`` column to an existing CSV file. Supports:
+
+* ``us``: fiscal year ends Sep 30
+* ``jp``: fiscal year ends Mar 31
 
 .. code-block:: bash
 
@@ -61,7 +64,8 @@ Interactive tool to find the ordinal week of the month and the ISO week of the y
 .. code-block:: bash
 
     $ calendar-smith-nth
-    Date? [yyyy-mm-dd] >> 2026-02-17
+    Date? [yyyy-mm-dd] (leave blank for today) >> 2026-02-17
+
     Result:
       Date:       2026-02-17 (Tuesday)
       Month Week: The 3rd week
@@ -69,11 +73,21 @@ Interactive tool to find the ordinal week of the month and the ISO week of the y
 
 4. ``calendar-smith-windows``
 -----------------------------
-Generate a series of future dates by stepping forward in time with a specified window size and number of repeats.
+Generate consecutive date windows from a starting date using a fixed window size and repeat count.
 
 .. code-block:: bash
 
     calendar-smith-windows 2026-03-17 7 4
+
+Example output:
+
+.. code-block:: text
+
+    Generated 4 windows starting from 2026-03-17 with size 7:
+      Window  1: 2026-03-17 to 2026-03-23
+      Window  2: 2026-03-24 to 2026-03-30
+      Window  3: 2026-03-31 to 2026-04-06
+      Window  4: 2026-04-07 to 2026-04-13
 
 Date Parsing Rules
 ==================
@@ -98,13 +112,13 @@ API Example
     # Get Japanese Fiscal Year (2026)
     fy_jp = get_fiscal_year(d, system="jp")
 
-    # Get US Fiscal Year (2026 - starts Oct 2025)
+    # Get US Fiscal Year (2026 - fiscal year ends Sep 30, 2026)
     fy_us = get_fiscal_year(d, system="us")
 
     # Get week of month
     week_num = get_nth_week_of_month(d)
 
-    # Generate next 4 weeks (returns list of (start, end) date tuples)
+    # Generate the next 4 date windows
     future_windows = get_dates_windows(d, window_size=7, repeats=4)
 
 License
