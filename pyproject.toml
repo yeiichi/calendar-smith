@@ -38,4 +38,7 @@ dev = [
 ]
 
 [project.scripts]
-calendar-smith-csv =
+calendar-smith-csv = "calendar_smith.cli:process_csv"
+calendar-smith-solve = "calendar_smith.cli:solve_weeks"
+calendar-smith-nth = "calendar_smith.cli:determine_nth_week"
+calendar-smith-windows = "calendar_smith.cli:generate_windows"
