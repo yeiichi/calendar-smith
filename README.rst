@@ -67,6 +67,14 @@ Interactive tool to find the ordinal week of the month and the ISO week of the y
       Month Week: The 3rd week
       Year Week:  The 8th week
 
+4. ``calendar-smith-windows``
+-----------------------------
+Generate a series of future dates by stepping forward in time with a specified window size and number of repeats.
+
+.. code-block:: bash
+
+    calendar-smith-windows 2026-03-17 7 4
+
 Date Parsing Rules
 ==================
 
@@ -82,7 +90,7 @@ API Example
 
 .. code-block:: python
 
-    from calendar_smith import get_fiscal_year, to_date, get_nth_week_of_month
+    from calendar_smith import get_fiscal_year, to_date, get_nth_week_of_month, get_dates_windows
 
     # Parse a messy but valid string
     d = to_date("2026/4/1")
@@ -95,6 +103,9 @@ API Example
 
     # Get week of month
     week_num = get_nth_week_of_month(d)
+
+    # Generate next 4 weeks (returns list of (start, end) date tuples)
+    future_windows = get_dates_windows(d, window_size=7, repeats=4)
 
 License
 =======

@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-03-17
+
+### Added
+- `calendar-smith-windows`: New CLI tool to generate a sequence of future dates using a starting date, window size (days), and repeat count.
+- `get_dates_windows`: New core utility function to programmatically generate lists of dates by incrementing a starting date.
+- Added comprehensive project metadata to `pyproject.toml`, including keywords, standard PyPI classifiers, and project URLs (Homepage, Repository, Bug Tracker).
+
+### Changed
+- Bumped package version to `0.2.0`.
+- Formally exposed `get_dates_windows` and `WeekSpan` in the public API (`calendar_smith` package root).
+- Modified `get_dates_windows` and `calendar-smith-windows` to return/print window ranges (start to end) to clearly show ending dates.
+
 ## [0.1.0] - 2026-02-17
 
 ### Added
