@@ -30,7 +30,7 @@ To contribute or run tests:
 
 .. code-block:: bash
 
-    git clone https://github.com/youruser/calendar-smith.git
+    git clone https://github.com/yeiichi/calendar-smith.git
     cd calendar-smith
     pip install -e ".[dev]"
     pytest

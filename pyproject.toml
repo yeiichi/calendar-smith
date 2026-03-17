@@ -27,9 +27,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/youruser/calendar-smith"
-Repository = "https://github.com/youruser/calendar-smith.git"
-"Bug Tracker" = "https://github.com/youruser/calendar-smith/issues"
+Homepage = "https://github.com/yeiichi/calendar-smith"
+Repository = "https://github.com/yeiichi/calendar-smith.git"
+"Bug Tracker" = "https://github.com/yeiichi/calendar-smith/issues"
 
 [project.optional-dependencies]
 dev = [
