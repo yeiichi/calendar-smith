@@ -30,16 +30,34 @@ def get_fiscal_year(date_obj: date, system: str = "us") -> int:
     raise ValueError(f"Unsupported fiscal system: {system}")
 
 
+def get_iso_week_span(iso_year: int, iso_week: int) -> WeekSpan:
+    """Return the Monday-to-Sunday date span for an ISO week."""
+    iso_week_monday = 1
+    iso_week_sunday = 7
+
+    week_start = date.fromisocalendar(iso_year, iso_week, iso_week_monday)
+    week_end = date.fromisocalendar(iso_year, iso_week, iso_week_sunday)
+    return WeekSpan(number=iso_week, start=week_start, end=week_end)
+
+
 def get_iso_weeks_for_year(year: int) -> List[WeekSpan]:
-    """Generates all ISO weeks for a given year using standard library."""
+    """
+    Gets the ISO week spans for a specified year.
+
+    This function calculates all ISO weeks that fall within the specified year
+    and generates their corresponding WeekSpan representations.
+
+    Parameters:
+    year: int
+        The year for which ISO weeks are to be calculated. Must be a valid integer
+        within the range of acceptable years for the datetime module.
+
+    Returns:
+    List[WeekSpan]
+        A list containing WeekSpan objects for each ISO week of the specified year.
+    """
     max_week = date(year, 12, 28).isocalendar().week
-    return [
-        WeekSpan(
-            number=w,
-            start=date.fromisocalendar(year, w, 1),
-            end=date.fromisocalendar(year, w, 7)
-        ) for w in range(1, max_week + 1)
-    ]
+    return [get_iso_week_span(year, w) for w in range(1, max_week + 1)]
 
 
 def get_nth_week_of_month(date_obj: date) -> int:

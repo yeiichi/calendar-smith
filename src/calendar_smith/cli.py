@@ -4,7 +4,13 @@ import csv
 import sys
 from pathlib import Path
 
-from .core import get_fiscal_year, get_iso_weeks_for_year, get_nth_week_of_month, get_dates_windows
+from .core import (
+    get_fiscal_year,
+    get_iso_weeks_for_year,
+    get_iso_week_span,
+    get_nth_week_of_month,
+    get_dates_windows,
+)
 from .utils import to_date, format_ordinal
 
 
@@ -64,6 +70,23 @@ def solve_weeks():
     weeks = get_iso_weeks_for_year(args.year)
     for w in weeks:
         print(f"Week {w.number:2}: {w.start} {w.end}")
+
+
+def solve_week_span():
+    """Entry point for: calendar-smith-week-span"""
+    parser = argparse.ArgumentParser(description="Show the Monday-to-Sunday span for a specific ISO week.")
+    parser.add_argument("iso_year", type=int, help="ISO year (YYYY)")
+    parser.add_argument("iso_week", type=int, help="ISO week number (1-53)")
+    args = parser.parse_args()
+
+    try:
+        span = get_iso_week_span(args.iso_year, args.iso_week)
+        print(f"\nISO Week {span.number} in {args.iso_year}:")
+        print(f"  Start: {span.start}")
+        print(f"  End:   {span.end}")
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
 
 def determine_nth_week():

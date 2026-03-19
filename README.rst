@@ -71,7 +71,15 @@ Interactive tool to find the ordinal week of the month and the ISO week of the y
       Month Week: The 3rd week
       Year Week:  The 8th week
 
-4. ``calendar-smith-windows``
+4. ``calendar-smith-week-span``
+-------------------------------
+Show the Monday-to-Sunday span for a specific ISO week.
+
+.. code-block:: bash
+
+    calendar-smith-week-span 2020 53
+
+5. ``calendar-smith-windows``
 -----------------------------
 Generate consecutive date windows from a starting date using a fixed window size and repeat count.
 
@@ -104,7 +112,16 @@ API Example
 
 .. code-block:: python
 
-    from calendar_smith import get_fiscal_year, to_date, get_nth_week_of_month, get_dates_windows
+    from calendar_smith import (
+        get_fiscal_year,
+        to_date,
+        get_nth_week_of_month,
+        get_dates_windows,
+        get_iso_week_span,
+        get_iso_weeks_for_year,
+        format_ordinal,
+        WeekSpan,
+    )
 
     # Parse a messy but valid string
     d = to_date("2026/4/1")
@@ -117,6 +134,12 @@ API Example
 
     # Get week of month
     week_num = get_nth_week_of_month(d)
+
+    # Get a specific ISO week span
+    span = get_iso_week_span(2026, 1)
+
+    # Get all ISO week spans for a year
+    all_weeks = get_iso_weeks_for_year(2026)
 
     # Generate the next 4 date windows
     future_windows = get_dates_windows(d, window_size=7, repeats=4)

@@ -4,10 +4,11 @@ from unittest.mock import patch
 
 import pytest
 
-from calendar_smith.cli import generate_windows
+from calendar_smith.cli import generate_windows, solve_week_span
 from calendar_smith.core import (
     get_fiscal_year,
     get_iso_weeks_for_year,
+    get_iso_week_span,
     get_nth_week_of_month,
     get_dates_windows,
     DateRange
@@ -35,6 +36,22 @@ def test_iso_weeks_generation():
     assert weeks[0].number == 1
     assert weeks[0].start == date(2024, 1, 1)
     assert weeks[-1].end == date(2024, 12, 29)
+
+
+def test_get_iso_week_span():
+    """Verify ISO week spans map to Monday-to-Sunday date ranges."""
+    span = get_iso_week_span(2024, 1)
+    assert span.number == 1
+    assert span.start == date(2024, 1, 1)
+    assert span.end == date(2024, 1, 7)
+
+
+def test_get_iso_week_span_year_boundary():
+    """Verify ISO weeks that cross a year boundary are handled correctly."""
+    span = get_iso_week_span(2020, 53)
+    assert span.number == 53
+    assert span.start == date(2020, 12, 28)
+    assert span.end == date(2021, 1, 3)
 
 
 @pytest.mark.parametrize("test_date, expected_nth", [
@@ -112,3 +129,15 @@ def test_generate_windows_cli():
             assert "Generated 2 windows" in output
             assert "Window  1: 2026-03-17 to 2026-03-23" in output
             assert "Window  2: 2026-03-24 to 2026-03-30" in output
+
+
+def test_solve_week_span_cli():
+    """Verify the CLI output for ISO week span lookup."""
+    test_args = ["calendar-smith-week-span", "2020", "53"]
+    with patch("sys.argv", test_args):
+        with patch("sys.stdout", new=io.StringIO()) as fake_out:
+            solve_week_span()
+            output = fake_out.getvalue()
+            assert "ISO Week 53 in 2020" in output
+            assert "Start: 2020-12-28" in output
+            assert "End:   2021-01-03" in output

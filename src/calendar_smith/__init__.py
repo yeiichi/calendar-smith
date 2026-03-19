@@ -7,6 +7,7 @@ Calendar-Smith: Lightweight fiscal and ISO calendar utilities.
 from .core import (
     get_fiscal_year,
     get_iso_weeks_for_year,
+    get_iso_week_span,
     get_nth_week_of_month,
     get_dates_windows,
     WeekSpan,
@@ -16,13 +17,14 @@ from .utils import (
     format_ordinal,
 )
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 # Defining __all__ ensures that 'from calendar_smith import *' 
 # only exports the intended public API.
 __all__ = [
     "get_fiscal_year",
     "get_iso_weeks_for_year",
+    "get_iso_week_span",
     "get_nth_week_of_month",
     "get_dates_windows",
     "WeekSpan",
