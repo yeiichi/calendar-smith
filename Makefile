@@ -1,7 +1,7 @@
 VENV ?= .venv
 PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
-PKG := calendar_smith
+SRC_PATH := src
 
 .PHONY: help venv install test clean build sdist wheel run-solve run-week-span run-nth run-windows run-csv
 
@@ -22,7 +22,7 @@ install: venv ## Install package (editable) + dev deps
 	$(PIP) install -e ".[dev]"
 
 test: ## Run tests (pytest)
-	$(PYTHON) -m pytest
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -m pytest
 
 build: sdist wheel ## Build source and wheel distributions
 
@@ -33,19 +33,19 @@ wheel: ## Build wheel distribution
 	$(PYTHON) -m build --wheel
 
 run-solve: ## Run ISO week listing CLI (usage: make run-solve YEAR=2026)
-	$(PYTHON) -m calendar_smith.cli solve_weeks $(YEAR)
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import solve_weeks; solve_weeks()" -- $(YEAR)
 
 run-week-span: ## Run ISO week span CLI (usage: make run-week-span ISO_YEAR=2020 ISO_WEEK=53)
-	$(PYTHON) -m calendar_smith.cli solve_week_span $(ISO_YEAR) $(ISO_WEEK)
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import solve_week_span; solve_week_span()" -- $(ISO_YEAR) $(ISO_WEEK)
 
 run-nth: ## Run nth-week CLI
-	$(PYTHON) -m calendar_smith.cli determine_nth_week
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import determine_nth_week; determine_nth_week()"
 
 run-windows: ## Run date windows CLI (usage: make run-windows START_DATE=2026-03-17 WINDOW_SIZE=7 REPEATS=4)
-	$(PYTHON) -m calendar_smith.cli generate_windows $(START_DATE) $(WINDOW_SIZE) $(REPEATS)
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import generate_windows; generate_windows()" -- $(START_DATE) $(WINDOW_SIZE) $(REPEATS)
 
 run-csv: ## Run CSV fiscal-year CLI (usage: make run-csv INPUT=records.csv OUTPUT=out.csv)
-	$(PYTHON) -m calendar_smith.cli process_csv $(INPUT) $(OUTPUT)
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import process_csv; process_csv()" -- $(INPUT) $(OUTPUT)
 
 clean: ## Remove build artifacts and Python cache files
 	@echo "Cleaning up..."
