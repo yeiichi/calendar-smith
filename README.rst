@@ -99,7 +99,7 @@ Example output:
       Window  4: 2026-04-07 to 2026-04-13
 
 6. ``calendar-smith-tz``
------------------------
+------------------------
 Convert an ISO 8601 datetime string from one timezone to another.
 
 .. code-block:: bash
