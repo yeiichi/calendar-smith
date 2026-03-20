@@ -17,7 +17,12 @@ from .utils import (
     format_ordinal,
 )
 
-__version__ = "0.2.3"
+from .time import (
+    UTC_TZ, JST, KST, CST_CN, IST, SGT, ET, PT, GMT, CET,
+    now_utc, now_in, now_jst, now_et, to_timezone, to_iso, from_iso, tz
+)
+
+__version__ = "0.3.0"
 
 # Defining __all__ ensures that 'from calendar_smith import *' 
 # only exports the intended public API.
@@ -30,4 +35,6 @@ __all__ = [
     "WeekSpan",
     "to_date",
     "format_ordinal",
+    "UTC_TZ", "JST", "KST", "CST_CN", "IST", "SGT", "ET", "PT", "GMT", "CET",
+    "now_utc", "now_in", "now_jst", "now_et", "to_timezone", "to_iso", "from_iso", "tz"
 ]

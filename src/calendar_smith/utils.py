@@ -3,7 +3,7 @@ import datetime
 import re
 
 def format_ordinal(n: int) -> str:
-    """Converts an integer to its ordinal string (e.g., 1 -> 1st, 22 -> 22nd)."""
+    """Return ``n`` as an ordinal string, such as ``1st`` or ``22nd``."""
     if 11 <= (n % 100) <= 13:
         suffix = 'th'
     else:
@@ -11,7 +11,7 @@ def format_ordinal(n: int) -> str:
     return f"{n}{suffix}"
 
 def super_date_parser(date_str: str) -> datetime.date:
-    """Handles YYYYMMDD and delimited dates; rejects 6/7 digit ambiguity."""
+    """Parse common date formats and reject ambiguous shorthand values."""
     date_part = date_str.split('T')[0].split(' ')[0]
     digits_only = re.sub(r'[^0-9]', '', date_part)
 
@@ -34,7 +34,7 @@ def super_date_parser(date_str: str) -> datetime.date:
     raise ValueError(f"Could not parse '{date_str}'. Expected YYYY-MM-DD or YYYYMMDD.")
 
 def to_date(date_input: str | datetime.date | None) -> datetime.date:
-    """Main entry point for date conversion with Fast/Safe path logic."""
+    """Convert a string, date, or ``None`` into a ``datetime.date``."""
     if not date_input:
         return datetime.date.today()
     if isinstance(date_input, datetime.date):

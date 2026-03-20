@@ -3,7 +3,7 @@ PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
 SRC_PATH := src
 
-.PHONY: help venv install test clean build sdist wheel run-solve run-week-span run-nth run-windows run-csv
+.PHONY: help venv install test clean build sdist wheel run-solve run-week-span run-nth run-windows run-csv run-tz
 
 help: ## Show this help message
 	@echo "Usage: make [target]"
@@ -46,6 +46,9 @@ run-windows: ## Run date windows CLI (usage: make run-windows START_DATE=2026-03
 
 run-csv: ## Run CSV fiscal-year CLI (usage: make run-csv INPUT=records.csv OUTPUT=out.csv)
 	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import process_csv; process_csv()" -- $(INPUT) $(OUTPUT)
+
+run-tz: ## Run timezone conversion CLI (usage: make run-tz DT_ISO="2026-03-20T10:00:00+09:00" TARGET_TZ="America/New_York")
+	PYTHONPATH=$(SRC_PATH) $(PYTHON) -c "from calendar_smith.cli import convert_timezone; convert_timezone()" -- $(DT_ISO) $(TARGET_TZ)
 
 clean: ## Remove build artifacts and Python cache files
 	@echo "Cleaning up..."

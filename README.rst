@@ -16,6 +16,7 @@ Key Features
 * **Safety-First Parsing**: Strictly rejects ambiguous 6-digit (``460614``) and 7-digit (``2026123``) strings to prevent century errors and data corruption.
 * **Fiscal Logic**: Built-in support for US (fiscal year ends Sep 30) and Japanese (fiscal year ends Mar 31) fiscal systems.
 * **Fast-Path Execution**: Utilizes ``datetime.fromisoformat`` for high-performance processing of standard data.
+* **Timezone Utilities**: Lightweight helpers for UTC, JST, ET, and other common timezones with ISO 8601 support.
 * **Ordinal Formatting**: Human-friendly outputs (e.g., "1st week", "3rd week").
 * **Zero External Dependencies**: Uses only the Python Standard Library (3.10+).
 
@@ -97,6 +98,15 @@ Example output:
       Window  3: 2026-03-31 to 2026-04-06
       Window  4: 2026-04-07 to 2026-04-13
 
+6. ``calendar-smith-tz``
+-----------------------
+Convert an ISO 8601 datetime string from one timezone to another.
+
+.. code-block:: bash
+
+    calendar-smith-tz 2026-03-20T10:00:00+09:00 America/New_York
+    # Output: 2026-03-19T21:00:00-04:00
+
 Date Parsing Rules
 ==================
 
@@ -143,6 +153,28 @@ API Example
 
     # Generate the next 4 date windows
     future_windows = get_dates_windows(d, window_size=7, repeats=4)
+
+    from calendar_smith import (
+        now_utc,
+        now_jst,
+        to_timezone,
+        to_iso,
+        from_iso,
+        JST,
+        ET,
+    )
+
+    # Get current time in JST
+    dt_jst = now_jst()
+
+    # Convert to New York time (ET)
+    dt_et = to_timezone(dt_jst, ET)
+
+    # Get ISO 8601 string
+    iso_str = to_iso(dt_et)
+
+    # Parse ISO 8601 string
+    dt_parsed = from_iso("2026-03-20T10:00:00+09:00")
 
 License
 =======

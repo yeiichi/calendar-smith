@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "calendar-smith"
-version = "0.2.3"
+version = "0.3.0"
 description = "Lightweight fiscal and ISO calendar utilities."
 readme = "README.rst"
 authors = [{ name = "Eiichi YAMAMOTO", email = "info@yeiichi.com" }]
@@ -43,3 +43,4 @@ calendar-smith-solve = "calendar_smith.cli:solve_weeks"
 calendar-smith-nth = "calendar_smith.cli:determine_nth_week"
 calendar-smith-week-span = "calendar_smith.cli:solve_week_span"
 calendar-smith-windows = "calendar_smith.cli:generate_windows"
+calendar-smith-tz = "calendar_smith.cli:convert_timezone"

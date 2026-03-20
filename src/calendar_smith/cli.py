@@ -12,10 +12,11 @@ from .core import (
     get_dates_windows,
 )
 from .utils import to_date, format_ordinal
+from .time import from_iso, to_timezone, tz, to_iso
 
 
 def process_csv():
-    """Entry point for: calendar-smith-csv"""
+    """CLI entry point that adds a fiscal year column to a CSV."""
     parser = argparse.ArgumentParser(description="Add fiscal year column to a CSV.")
     parser.add_argument("input_csv", type=Path, help="Path to input CSV file")
     parser.add_argument("output_csv", type=Path, help="Path to output CSV file")
@@ -60,7 +61,7 @@ def process_csv():
 
 
 def solve_weeks():
-    """Entry point for: calendar-smith-solve"""
+    """CLI entry point that lists ISO week ranges for a year."""
     parser = argparse.ArgumentParser(description="List ISO week date ranges for a given year.")
     parser.add_argument("year", type=int, help="Target year (YYYY)")
     args = parser.parse_args()
@@ -73,7 +74,7 @@ def solve_weeks():
 
 
 def solve_week_span():
-    """Entry point for: calendar-smith-week-span"""
+    """CLI entry point that shows the span for a specific ISO week."""
     parser = argparse.ArgumentParser(description="Show the Monday-to-Sunday span for a specific ISO week.")
     parser.add_argument("iso_year", type=int, help="ISO year (YYYY)")
     parser.add_argument("iso_week", type=int, help="ISO week number (1-53)")
@@ -90,7 +91,7 @@ def solve_week_span():
 
 
 def determine_nth_week():
-    """Entry point for: calendar-smith-nth"""
+    """CLI entry point that shows the week number within a month."""
     print("--- Nth Week of Month Calculator ---")
     date_input = input('Date? [yyyy-mm-dd] (leave blank for today) >> ').strip()
 
@@ -110,7 +111,7 @@ def determine_nth_week():
 
 
 def generate_windows():
-    """Entry point for: calendar-smith-windows"""
+    """CLI entry point that generates consecutive date windows."""
     parser = argparse.ArgumentParser(description="Generate future dates by stepping forward in time.")
     parser.add_argument("start_date", help="Starting date (YYYY-MM-DD)")
     parser.add_argument("window_size", type=int, help="Number of days to increment in each step")
@@ -125,6 +126,23 @@ def generate_windows():
         print(f"\nGenerated {args.repeats} windows starting from {start} with size {args.window_size}:")
         for i, window in enumerate(dates, 1):
             print(f"  Window {i:2}: {window.start} to {window.end}")
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+
+def convert_timezone():
+    """CLI entry point that converts an ISO 8601 datetime to another timezone."""
+    parser = argparse.ArgumentParser(description="Convert an ISO 8601 datetime string to another timezone.")
+    parser.add_argument("dt_iso", help="ISO 8601 datetime string (must be aware, e.g., '2023-01-01T12:00:00+09:00')")
+    parser.add_argument("target_tz", help="Target IANA timezone name (e.g., 'America/New_York' or 'UTC')")
+    args = parser.parse_args()
+
+    try:
+        dt = from_iso(args.dt_iso)
+        target = tz(args.target_tz)
+        converted = to_timezone(dt, target)
+        print(to_iso(converted))
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)

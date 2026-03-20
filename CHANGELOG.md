@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-03-20
+
+### Added
+- `src/calendar_smith/time.py`: New module for timezone-aware datetime utilities.
+- `calendar-smith-tz`: New CLI tool to convert ISO 8601 datetime strings between timezones.
+- New timezone constants: `UTC_TZ`, `JST`, `KST`, `CST_CN`, `IST`, `SGT`, `ET`, `PT`, `GMT`, `CET`.
+- New functions: `now_utc`, `now_in`, `now_jst`, `now_et`, `to_timezone`, `to_iso`, `from_iso`, `tz`.
+
+### Changed
+- Bumped package version to `0.3.0`.
+- Updated `src/calendar_smith/__init__.py` to export new timezone utilities.
+- Updated `README.rst` with timezone usage examples and CLI documentation.
+
 ## [0.2.3] - 2026-03-19
 
 ### Added
