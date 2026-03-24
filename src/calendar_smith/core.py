@@ -54,12 +54,37 @@ def get_nth_week_of_month(date_obj: date) -> int:
     return (adjusted_dom - 1) // 7 + 1
 
 
-def get_dates_windows(date_obj: date, window_size: int, repeats: int) -> list[DateRange]:
-    """Return consecutive non-overlapping date windows."""
-    windows: List[DateRange] = []
-    current_start = date_obj
-    for _ in range(repeats):
-        current_end = current_start + timedelta(days=window_size - 1)
-        windows.append(DateRange(current_start, current_end))
-        current_start = current_end + timedelta(days=1)
-    return windows
+def get_dates_windows(
+        start_date: date,
+        window_size: int,
+        repeats: int,
+        sampling_rate: int | None = None,
+) -> list[DateRange]:
+    """
+    Return date windows based on a sampling rate.
+
+    Args:
+        start_date: The starting date of the first window.
+        window_size: The duration of each window in days.
+        repeats: Number of windows to generate.
+        sampling_rate: The number of days between the start of each window.
+            Defaults to window_size, which produces consecutive non-overlapping windows.
+    """
+    if window_size < 1:
+        raise ValueError("window_size must be at least 1 day.")
+    if repeats < 0:
+        raise ValueError("repeats cannot be negative.")
+
+    sampling_rate = window_size if sampling_rate is None else sampling_rate
+    if sampling_rate < 1:
+        raise ValueError("sampling_rate must be at least 1 day to progress forward.")
+
+    window_end_offset = timedelta(days=window_size - 1)
+
+    return [
+        DateRange(
+            start_date + timedelta(days=index * sampling_rate),
+            start_date + timedelta(days=index * sampling_rate) + window_end_offset,
+        )
+        for index in range(repeats)
+    ]

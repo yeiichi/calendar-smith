@@ -79,6 +79,37 @@ def test_get_dates_windows():
     assert get_dates_windows(start_date, window_size, repeats) == expected
 
 
+def test_get_dates_windows_sampling_rate():
+    """Verify window generation when sampling rate is different from window size."""
+    start_date = date(2024, 1, 1)
+    window_size = 3
+    repeats = 3
+    sampling_rate = 1
+    # Overlapping windows
+    # Window 1: 1-3, Window 2: 2-4, Window 3: 3-5
+    expected = [
+        DateRange(date(2024, 1, 1), date(2024, 1, 3)),
+        DateRange(date(2024, 1, 2), date(2024, 1, 4)),
+        DateRange(date(2024, 1, 3), date(2024, 1, 5))
+    ]
+    assert get_dates_windows(start_date, window_size, repeats, sampling_rate) == expected
+
+
+def test_get_dates_windows_gaps():
+    """Verify window generation with gaps (sampling_rate > window_size)."""
+    start_date = date(2024, 1, 1)
+    window_size = 2
+    repeats = 2
+    sampling_rate = 5
+    # Gapped windows
+    # Window 1: 1-2, Window 2: 6-7
+    expected = [
+        DateRange(date(2024, 1, 1), date(2024, 1, 2)),
+        DateRange(date(2024, 1, 6), date(2024, 1, 7))
+    ]
+    assert get_dates_windows(start_date, window_size, repeats, sampling_rate) == expected
+
+
 # --- Utility & Parser Tests ---
 
 @pytest.mark.parametrize("valid_input, expected", [
@@ -129,6 +160,19 @@ def test_generate_windows_cli():
             assert "Generated 2 windows" in output
             assert "Window  1: 2026-03-17 to 2026-03-23" in output
             assert "Window  2: 2026-03-24 to 2026-03-30" in output
+
+
+def test_generate_windows_sampling_cli():
+    """Verify the CLI output for generate_windows with sampling_rate."""
+    test_args = ["calendar-smith-windows", "2026-03-17", "7", "2", "--sampling-rate", "1"]
+    with patch("sys.argv", test_args):
+        with patch("sys.stdout", new=io.StringIO()) as fake_out:
+            generate_windows()
+            output = fake_out.getvalue()
+            assert "Generated 2 windows" in output
+            assert "(Sampling rate: 1 days)" in output
+            assert "Window  1: 2026-03-17 to 2026-03-23" in output
+            assert "Window  2: 2026-03-18 to 2026-03-24" in output
 
 
 def test_solve_week_span_cli():

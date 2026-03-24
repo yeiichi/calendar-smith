@@ -111,19 +111,26 @@ def determine_nth_week():
 
 
 def generate_windows():
-    """CLI entry point that generates consecutive date windows."""
+    """CLI entry point that generates date windows with optional sampling rate."""
     parser = argparse.ArgumentParser(description="Generate future dates by stepping forward in time.")
     parser.add_argument("start_date", help="Starting date (YYYY-MM-DD)")
     parser.add_argument("window_size", type=int, help="Number of days to increment in each step")
     parser.add_argument("repeats", type=int, help="Number of steps/dates to generate")
+    parser.add_argument(
+        "--sampling-rate", "-s",
+        type=int,
+        help="The number of days between the start of each window (defaults to window_size)."
+    )
 
     args = parser.parse_args()
 
     try:
         start = to_date(args.start_date)
-        dates = get_dates_windows(start, args.window_size, args.repeats)
+        dates = get_dates_windows(start, args.window_size, args.repeats, args.sampling_rate)
 
         print(f"\nGenerated {args.repeats} windows starting from {start} with size {args.window_size}:")
+        if args.sampling_rate:
+            print(f"  (Sampling rate: {args.sampling_rate} days)")
         for i, window in enumerate(dates, 1):
             print(f"  Window {i:2}: {window.start} to {window.end}")
     except Exception as e:

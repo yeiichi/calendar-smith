@@ -82,11 +82,15 @@ Show the Monday-to-Sunday span for a specific ISO week.
 
 5. ``calendar-smith-windows``
 -----------------------------
-Generate consecutive date windows from a starting date using a fixed window size and repeat count.
+Generate date windows (consecutive, overlapping, or gapped) from a starting date using a fixed window size and repeat count. Use ``--sampling-rate`` (or ``-s``) for overlapping or gapped windows.
 
 .. code-block:: bash
 
+    # Generate 4 consecutive 7-day windows
     calendar-smith-windows 2026-03-17 7 4
+
+    # Generate 4 overlapping 7-day windows starting every 1 day
+    calendar-smith-windows 2026-03-17 7 4 --sampling-rate 1
 
 Example output:
 
@@ -131,6 +135,7 @@ API Example
         get_iso_weeks_for_year,
         format_ordinal,
         WeekSpan,
+        DateRange,
     )
 
     # Parse a messy but valid string
@@ -151,8 +156,11 @@ API Example
     # Get all ISO week spans for a year
     all_weeks = get_iso_weeks_for_year(2026)
 
-    # Generate the next 4 date windows
+    # Generate the next 4 date windows (default: consecutive)
     future_windows = get_dates_windows(d, window_size=7, repeats=4)
+
+    # Generate overlapping windows (starting every 1 day)
+    overlapping = get_dates_windows(d, window_size=7, repeats=4, sampling_rate=1)
 
     from calendar_smith import (
         now_utc,

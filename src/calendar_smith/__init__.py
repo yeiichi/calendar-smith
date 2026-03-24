@@ -11,6 +11,7 @@ from .core import (
     get_nth_week_of_month,
     get_dates_windows,
     WeekSpan,
+    DateRange,
 )
 from .utils import (
     to_date,
@@ -22,7 +23,7 @@ from .time import (
     now_utc, now_in, now_jst, now_et, to_timezone, to_iso, from_iso, tz
 )
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 # Defining __all__ ensures that 'from calendar_smith import *' 
 # only exports the intended public API.
@@ -33,6 +34,7 @@ __all__ = [
     "get_nth_week_of_month",
     "get_dates_windows",
     "WeekSpan",
+    "DateRange",
     "to_date",
     "format_ordinal",
     "UTC_TZ", "JST", "KST", "CST_CN", "IST", "SGT", "ET", "PT", "GMT", "CET",
