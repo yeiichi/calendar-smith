@@ -67,3 +67,8 @@ output.csv
 ._*
 Thumbs.db
 desktop.ini
+
+# -------------------------
+# OS Junk
+# -------------------------
+scripts/
