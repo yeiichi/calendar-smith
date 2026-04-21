@@ -22,8 +22,9 @@ from .time import (
     UTC_TZ, JST, KST, CST_CN, IST, SGT, ET, PT, GMT, CET,
     now_utc, now_in, now_jst, now_et, to_timezone, to_iso, from_iso, tz
 )
+from .cli import main
 
-__version__ = "0.4.0"
+__version__ = "0.4.2"
 
 # Defining __all__ ensures that 'from calendar_smith import *' 
 # only exports the intended public API.
@@ -38,5 +39,6 @@ __all__ = [
     "to_date",
     "format_ordinal",
     "UTC_TZ", "JST", "KST", "CST_CN", "IST", "SGT", "ET", "PT", "GMT", "CET",
-    "now_utc", "now_in", "now_jst", "now_et", "to_timezone", "to_iso", "from_iso", "tz"
+    "now_utc", "now_in", "now_jst", "now_et", "to_timezone", "to_iso", "from_iso", "tz",
+    "main",
 ]

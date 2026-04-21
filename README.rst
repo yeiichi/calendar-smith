@@ -39,7 +39,20 @@ To contribute or run tests:
 CLI Commands
 ============
 
-1. ``calendar-smith-csv``
+1. ``calendar-smith``
+---------------------
+Top-level command with subcommands:
+
+.. code-block:: bash
+
+    calendar-smith solve 2026
+    calendar-smith week-span 2020 53
+    calendar-smith nth
+    calendar-smith windows 2026-03-17 7 4
+    calendar-smith tz 2026-03-20T10:00:00+09:00 America/New_York
+    calendar-smith csv records.csv records_with_fy.csv --system jp --date-column created_at
+
+2. ``calendar-smith-csv``
 -------------------------
 Appends a ``fiscal_year`` column to an existing CSV file. Supports:
 
@@ -102,7 +115,7 @@ Example output:
       Window  3: 2026-03-31 to 2026-04-06
       Window  4: 2026-04-07 to 2026-04-13
 
-6. ``calendar-smith-tz``
+7. ``calendar-smith-tz``
 ------------------------
 Convert an ISO 8601 datetime string from one timezone to another.
 

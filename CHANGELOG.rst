@@ -6,6 +6,29 @@ All notable changes to this project will be documented in this file.
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
 and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
+0.4.2 - 2026-03-24
+------------------
+
+Changed
+~~~~~~~
+- Bumped package version to ``0.4.2``.
+- Follow-up release for CLI refactor and test updates.
+
+0.4.1 - 2026-03-24
+------------------
+
+Added
+~~~~~
+- Top-level ``calendar-smith`` CLI entry point with subcommands.
+- ``calendar-smith solve``, ``week-span``, ``nth``, ``windows``, ``tz``, and ``csv`` subcommands.
+
+Changed
+~~~~~~~
+- Bumped package version to ``0.4.1``.
+- Updated ``src/calendar_smith/__init__.py`` to export ``main``.
+- Refactored CLI structure to support a single umbrella command while preserving legacy script entry points.
+- Updated tests to cover the new top-level CLI behavior.
+
 0.4.0 - 2026-03-24
 ------------------
 
