@@ -11,7 +11,7 @@ calendar-smith
 It was built for data engineers and analysts who need to process CSVs or perform calendar math without the overhead of heavy libraries like Pandas or Arrow.
 
 Key Features
-============
+------------
 
 * **Safety-First Parsing**: Strictly rejects ambiguous 6-digit (``460614``) and 7-digit (``2026123``) strings to prevent century errors and data corruption.
 * **Fiscal Logic**: Built-in support for US (fiscal year ends Sep 30) and Japanese (fiscal year ends Mar 31) fiscal systems.
@@ -21,7 +21,7 @@ Key Features
 * **Zero External Dependencies**: Uses only the Python Standard Library (3.10+).
 
 Installation
-============
+------------
 
 .. code-block:: bash
 
@@ -37,10 +37,10 @@ To contribute or run tests:
     pytest
 
 CLI Commands
-============
+------------
 
 1. ``calendar-smith``
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 Top-level command with subcommands:
 
 .. code-block:: bash
@@ -50,10 +50,11 @@ Top-level command with subcommands:
     calendar-smith nth
     calendar-smith windows 2026-03-17 7 4
     calendar-smith tz 2026-03-20T10:00:00+09:00 America/New_York
+    calendar-smith fiscal-year 2026-04-22 --system jp
     calendar-smith csv records.csv records_with_fy.csv --system jp --date-column created_at
 
 2. ``calendar-smith-csv``
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 Appends a ``fiscal_year`` column to an existing CSV file. Supports:
 
 * ``us``: fiscal year ends Sep 30
@@ -63,16 +64,16 @@ Appends a ``fiscal_year`` column to an existing CSV file. Supports:
 
     calendar-smith-csv records.csv records_with_fy.csv --system jp --date-column created_at
 
-2. ``calendar-smith-solve``
----------------------------
+3. ``calendar-smith-solve``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Lists the Monday-to-Sunday date ranges for every ISO week in a given year.
 
 .. code-block:: bash
 
     calendar-smith-solve 2026
 
-3. ``calendar-smith-nth``
--------------------------
+4. ``calendar-smith-nth``
+~~~~~~~~~~~~~~~~~~~~~~~~~
 Interactive tool to find the ordinal week of the month and the ISO week of the year for any date.
 
 .. code-block:: bash
@@ -85,16 +86,16 @@ Interactive tool to find the ordinal week of the month and the ISO week of the y
       Month Week: The 3rd week
       Year Week:  The 8th week
 
-4. ``calendar-smith-week-span``
--------------------------------
+5. ``calendar-smith-week-span``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Show the Monday-to-Sunday span for a specific ISO week.
 
 .. code-block:: bash
 
     calendar-smith-week-span 2020 53
 
-5. ``calendar-smith-windows``
------------------------------
+6. ``calendar-smith-windows``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Generate date windows (consecutive, overlapping, or gapped) from a starting date using a fixed window size and repeat count. Use ``--sampling-rate`` (or ``-s``) for overlapping or gapped windows.
 
 .. code-block:: bash
@@ -116,7 +117,7 @@ Example output:
       Window  4: 2026-04-07 to 2026-04-13
 
 7. ``calendar-smith-tz``
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 Convert an ISO 8601 datetime string from one timezone to another.
 
 .. code-block:: bash
@@ -124,8 +125,17 @@ Convert an ISO 8601 datetime string from one timezone to another.
     calendar-smith-tz 2026-03-20T10:00:00+09:00 America/New_York
     # Output: 2026-03-19T21:00:00-04:00
 
+8. ``calendar-smith-fiscal-year``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Return the fiscal year for a given date.
+
+.. code-block:: bash
+
+    calendar-smith-fiscal-year 2026-04-22 --system jp
+    # Output: 2026
+
 Date Parsing Rules
-==================
+------------------
 
 To ensure data integrity, **calendar-smith** follows these parsing rules:
 
@@ -135,7 +145,7 @@ To ensure data integrity, **calendar-smith** follows these parsing rules:
     * ``2026123`` (7-digit): Rejected because it could be Jan 23rd or Dec 3rd.
 
 API Example
-===========
+-----------
 
 .. code-block:: python
 
@@ -198,6 +208,6 @@ API Example
     dt_parsed = from_iso("2026-03-20T10:00:00+09:00")
 
 License
-=======
+-------
 
 MIT License. See ``LICENSE`` for details.

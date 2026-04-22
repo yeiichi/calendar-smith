@@ -1,6 +1,12 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+import sys
+
+if sys.version_info >= (3, 11):
+    from datetime import UTC, datetime
+else:
+    from datetime import datetime, timezone
+    UTC = timezone.utc
 from zoneinfo import ZoneInfo
 
 # ---- Public timezone constants ----

@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## Unreleased
+
+### Features
+
+- Add CLI command for calculating fiscal year
+  ([`b269048`](https://github.com/yeiichi/calendar-smith/commit/b269048b5b51a5dd983017f75dc4a3b74c741b9e))
+
+### Refactoring
+
+- Rename date helper functions
+  ([`575e509`](https://github.com/yeiichi/calendar-smith/commit/575e509acdbec4af36b263659ad34335e63385ea))
+
+- Change two function names of the following functions in `src/calendar_smith/utils.py` and make necessary changes to `core.py` and README.rst .
+  ([`94f9879`](https://github.com/yeiichi/calendar-smith/commit/94f9879c8f9cc4b608cb485a07c6626a17275fe3))
+
 ## v1.0.0 (2026-04-22)
 
 ### Chores

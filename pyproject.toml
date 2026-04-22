@@ -4,13 +4,15 @@ build-backend = "uv_build"
 
 [project]
 name = "calendar-smith"
-version = "0.4.2"
+version = "1.0.0"
 description = "Lightweight fiscal and ISO calendar utilities."
 readme = "README.rst"
 authors = [{ name = "Eiichi YAMAMOTO", email = "info@yeiichi.com" }]
 license = { text = "MIT" }
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "pytest>=9.0.3",
+]
 keywords = ["calendar", "fiscal-year", "iso-weeks", "date-parsing", "csv-utilities"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -30,11 +32,15 @@ classifiers = [
 Homepage = "https://github.com/yeiichi/calendar-smith"
 Repository = "https://github.com/yeiichi/calendar-smith.git"
 "Bug Tracker" = "https://github.com/yeiichi/calendar-smith/issues"
+Documentation = "https://calendar-smith.readthedocs.io/"
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0", # Optional: for checking test coverage
+    "sphinx>=7.0",
+    "furo",
+    "myst-parser",
 ]
 
 [project.scripts]
@@ -45,3 +51,4 @@ calendar-smith-nth = "calendar_smith.cli:determine_nth_week"
 calendar-smith-week-span = "calendar_smith.cli:solve_week_span"
 calendar-smith-windows = "calendar_smith.cli:generate_windows"
 calendar-smith-tz = "calendar_smith.cli:convert_timezone"
+calendar-smith-fiscal-year = "calendar_smith.cli:fiscal_year"

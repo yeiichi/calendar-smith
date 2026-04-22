@@ -1,13 +1,18 @@
 import io
 import sys
-from datetime import datetime, UTC
+from datetime import datetime
+if sys.version_info >= (3, 11):
+    from datetime import UTC
+else:
+    from datetime import timezone
+    UTC = timezone.utc
 from zoneinfo import ZoneInfo
 from unittest.mock import patch
 import pytest
 
 from calendar_smith.time import (
     JST, ET, UTC_TZ, 
-    now_utc, now_jst, 
+    now_utc, now_jst, now_et, now_in,
     to_timezone, to_iso, from_iso, tz
 )
 from calendar_smith.cli import convert_timezone
@@ -27,6 +32,9 @@ def test_now_functions():
     
     dt_jst = now_jst()
     assert dt_jst.tzinfo == JST
+
+    dt_et = now_et()
+    assert dt_et.tzinfo == ET
 
 def test_to_timezone_conversion():
     """Verify aware-to-aware conversion logic."""
@@ -60,6 +68,12 @@ def test_from_iso_naive_fails():
 def test_tz_helper():
     """Verify the tz helper returns the correct ZoneInfo."""
     assert tz("Europe/London") == ZoneInfo("Europe/London")
+
+def test_now_in():
+    """Verify now_in returns aware datetime in specified timezone."""
+    timezone = ZoneInfo("Europe/Berlin")
+    dt = now_in(timezone)
+    assert dt.tzinfo == timezone
 
 # --- CLI Tests ---
 
