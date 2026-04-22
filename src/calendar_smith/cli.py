@@ -110,6 +110,17 @@ def convert_timezone_args(args):
         sys.exit(1)
 
 
+def get_fiscal_year_args(args):
+    """Return the fiscal year for a date."""
+    try:
+        d = ensure_date(args.date)
+        fy = get_fiscal_year(d, args.system)
+        print(fy)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+
+
 def build_parser():
     parser = argparse.ArgumentParser(
         prog="calendar-smith",
@@ -148,6 +159,11 @@ def build_parser():
     p_tz.add_argument("target_tz")
     p_tz.set_defaults(func=convert_timezone_args)
 
+    p_fy = subparsers.add_parser("fiscal-year", help="Return the fiscal year for a date.")
+    p_fy.add_argument("date", help="Date in YYYY-MM-DD format")
+    p_fy.add_argument("--system", choices=["us", "jp"], default="us", help="Fiscal system (us or jp)")
+    p_fy.set_defaults(func=get_fiscal_year_args)
+
     return parser
 
 
@@ -180,3 +196,7 @@ def generate_windows():
 
 def convert_timezone():
     return main(["tz", *sys.argv[1:]])
+
+
+def fiscal_year():
+    return main(["fiscal-year", *sys.argv[1:]])

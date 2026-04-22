@@ -22,7 +22,7 @@ from .time import (
     UTC_TZ, JST, KST, CST_CN, IST, SGT, ET, PT, GMT, CET,
     now_utc, now_in, now_jst, now_et, to_timezone, to_iso, from_iso, tz
 )
-from .cli import main
+from .cli import main, fiscal_year
 
 __version__ = "0.4.2"
 
@@ -40,5 +40,5 @@ __all__ = [
     "format_ordinal",
     "UTC_TZ", "JST", "KST", "CST_CN", "IST", "SGT", "ET", "PT", "GMT", "CET",
     "now_utc", "now_in", "now_jst", "now_et", "to_timezone", "to_iso", "from_iso", "tz",
-    "main",
+    "main", "fiscal_year",
 ]
