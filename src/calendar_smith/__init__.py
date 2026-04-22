@@ -24,7 +24,7 @@ from .time import (
 )
 from .cli import main, fiscal_year
 
-__version__ = "0.4.2"
+__version__ = "1.1.0"
 
 # Defining __all__ ensures that 'from calendar_smith import *' 
 # only exports the intended public API.

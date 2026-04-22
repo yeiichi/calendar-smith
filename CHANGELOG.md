@@ -2,9 +2,12 @@
 
 <!-- version list -->
 
-## Unreleased
+## v1.1.0 (2026-04-22)
 
 ### Features
+
+- Add timezone utilities, test suite, and Sphinx documentation
+  ([`f268e0a`](https://github.com/yeiichi/calendar-smith/commit/f268e0a2a6d9a9da236bd1ea6c76f73f5bc7b3cd))
 
 - Add CLI command for calculating fiscal year
   ([`b269048`](https://github.com/yeiichi/calendar-smith/commit/b269048b5b51a5dd983017f75dc4a3b74c741b9e))
