@@ -45,3 +45,16 @@ calendar-smith-nth = "calendar_smith.cli:determine_nth_week"
 calendar-smith-week-span = "calendar_smith.cli:solve_week_span"
 calendar-smith-windows = "calendar_smith.cli:generate_windows"
 calendar-smith-tz = "calendar_smith.cli:convert_timezone"
+
+[tool.semantic_release]
+version_toml = [
+    "pyproject.toml:project.version"
+]
+version_variables = [
+    "src/calendar_smith/__init__.py:__version__"
+]
+branch = "main"
+commit_parser = "conventional"
+build_command = "pip install uv build && python -m build"
+upload_to_pypi = true
+upload_to_release = true

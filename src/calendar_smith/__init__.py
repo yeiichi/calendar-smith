@@ -14,7 +14,7 @@ from .core import (
     DateRange,
 )
 from .utils import (
-    to_date,
+    ensure_date,
     format_ordinal,
 )
 
@@ -36,7 +36,7 @@ __all__ = [
     "get_dates_windows",
     "WeekSpan",
     "DateRange",
-    "to_date",
+    "ensure_date",
     "format_ordinal",
     "UTC_TZ", "JST", "KST", "CST_CN", "IST", "SGT", "ET", "PT", "GMT", "CET",
     "now_utc", "now_in", "now_jst", "now_et", "to_timezone", "to_iso", "from_iso", "tz",

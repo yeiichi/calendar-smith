@@ -11,7 +11,7 @@ from .core import (
     get_nth_week_of_month,
     get_dates_windows,
 )
-from .utils import to_date, format_ordinal
+from .utils import ensure_date, format_ordinal
 from .time import from_iso, to_timezone, tz, to_iso
 
 
@@ -35,7 +35,7 @@ def process_csv_args(args):
 
             writer.writeheader()
             for row in reader:
-                d = to_date(row[args.date_column])
+                d = ensure_date(row[args.date_column])
                 row["fiscal_year"] = get_fiscal_year(d, args.system)
                 writer.writerow(row)
 
@@ -71,7 +71,7 @@ def determine_nth_week_args(_args):
     date_input = input("Date? [yyyy-mm-dd] (leave blank for today) >> ").strip()
 
     try:
-        d = to_date(date_input if date_input else None)
+        d = ensure_date(date_input if date_input else None)
         nth = get_nth_week_of_month(d)
 
         print("\nResult:")
@@ -85,7 +85,7 @@ def determine_nth_week_args(_args):
 def generate_windows_args(args):
     """Generate date windows with optional sampling rate."""
     try:
-        start = to_date(args.start_date)
+        start = ensure_date(args.start_date)
         dates = get_dates_windows(start, args.window_size, args.repeats, args.sampling_rate)
 
         print(f"\nGenerated {args.repeats} windows starting from {start} with size {args.window_size}:")

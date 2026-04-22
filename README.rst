@@ -141,7 +141,7 @@ API Example
 
     from calendar_smith import (
         get_fiscal_year,
-        to_date,
+        ensure_date,
         get_nth_week_of_month,
         get_dates_windows,
         get_iso_week_span,
@@ -152,7 +152,7 @@ API Example
     )
 
     # Parse a messy but valid string
-    d = to_date("2026/4/1")
+    d = ensure_date("2026/4/1")
 
     # Get Japanese Fiscal Year (2026)
     fy_jp = get_fiscal_year(d, system="jp")
